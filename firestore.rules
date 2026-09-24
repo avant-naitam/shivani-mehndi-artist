@@ -1,0 +1,52 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    // Check if caller is an active authorized admin (Owner or Business Admin)
+    function isAuthorizedAdmin() {
+      return isAuthenticated() && (
+        request.auth.token.email == 'avantnaitam07@gmail.com' ||
+        (exists(/databases/$(database)/documents/admins/$(request.auth.token.email)) &&
+         get(/databases/$(database)/documents/admins/$(request.auth.token.email)).data.status == 'Active')
+      );
+    }
+    
+    // Check if caller is Owner / Super Admin
+    function isOwner() {
+      return isAuthenticated() && (
+        request.auth.token.email == 'avantnaitam07@gmail.com' ||
+        (exists(/databases/$(database)/documents/admins/$(request.auth.token.email)) &&
+         get(/databases/$(database)/documents/admins/$(request.auth.token.email)).data.role == 'Owner' &&
+         get(/databases/$(database)/documents/admins/$(request.auth.token.email)).data.status == 'Active')
+      );
+    }
+
+    // Admins collection:
+    // Authorized caller can read their own record to verify role.
+    // Owner can read all records and add/revoke/update admins.
+    match /admins/{adminEmail} {
+      allow read: if isAuthenticated() && (request.auth.token.email == adminEmail || isOwner());
+      allow write: if isOwner();
+    }
+
+    // Inquiries:
+    // Anyone can create (submit form from public contact section)
+    // Only authorized active admins can read, update, or delete
+    match /inquiries/{inquiryId} {
+      allow create: if true;
+      allow read, update, delete: if isAuthorizedAdmin();
+    }
+    
+    // Bookings:
+    // Anyone can create (submit appointment from public booking form)
+    // Only authorized active admins can read, update, or delete
+    match /bookings/{bookingId} {
+      allow create: if true;
+      allow read, update, delete: if isAuthorizedAdmin();
+    }
+  }
+}

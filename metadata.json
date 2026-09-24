@@ -1,0 +1,6 @@
+{
+  "name": "Shivani Mehndi Artist",
+  "description": "Premier mehndi art and training in Gadchiroli. Offering Basic to Advanced Mehndi Courses and professional mehndi services for weddings and special occasions.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

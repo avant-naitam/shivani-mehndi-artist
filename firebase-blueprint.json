@@ -1,0 +1,77 @@
+{
+  "entities": {
+    "admins": {
+      "title": "Authorized Admins",
+      "description": "Authorized administrators for the Artist Portal",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string", "description": "Admin email address" },
+        "role": { "type": "string", "enum": ["Owner", "Business Admin"], "description": "Admin role" },
+        "status": { "type": "string", "enum": ["Active", "Revoked"], "description": "Admin access status" },
+        "addedAt": { "type": "string", "description": "ISO timestamp when admin was added" },
+        "addedBy": { "type": "string", "description": "Email of the admin who granted access" }
+      },
+      "required": ["email", "role", "status", "addedAt"]
+    },
+    "inquiries": {
+      "title": "Client Inquiries",
+      "description": "Client inquiries submitted via the Contact form",
+      "type": "object",
+      "properties": {
+        "fullName": {
+          "type": "string",
+          "description": "Client full name"
+        },
+        "phoneNumber": {
+          "type": "string",
+          "description": "Client phone number"
+        },
+        "message": {
+          "type": "string",
+          "description": "Inquiry message or mehndi request details"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["Pending", "Confirmed", "Completed", "Cancelled"],
+          "description": "Current status of the client inquiry"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "ISO timestamp of submission date and time"
+        }
+      },
+      "required": ["fullName", "phoneNumber", "message", "status", "createdAt"]
+    },
+    "bookings": {
+      "title": "Booking Requests",
+      "description": "Mehndi booking requests submitted via the Booking modal",
+      "type": "object",
+      "properties": {
+        "fullName": { "type": "string" },
+        "phoneNumber": { "type": "string" },
+        "serviceType": { "type": "string" },
+        "eventType": { "type": "string" },
+        "preferredDate": { "type": "string" },
+        "preferredTime": { "type": "string" },
+        "message": { "type": "string" },
+        "status": { "type": "string", "enum": ["Pending", "Confirmed", "Completed", "Cancelled"] },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["fullName", "phoneNumber", "serviceType", "status", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/admins/{adminEmail}": {
+      "entity": "admins",
+      "rules": "allow read: if request.auth != null && (request.auth.token.email == adminEmail || isOwner()); allow write: if isOwner();"
+    },
+    "/inquiries/{inquiryId}": {
+      "entity": "inquiries",
+      "rules": "allow create: if true; allow read, update, delete: if isAuthorizedAdmin();"
+    },
+    "/bookings/{bookingId}": {
+      "entity": "bookings",
+      "rules": "allow create: if true; allow read, update, delete: if isAuthorizedAdmin();"
+    }
+  }
+}

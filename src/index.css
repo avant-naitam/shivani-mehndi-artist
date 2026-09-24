@@ -1,0 +1,203 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  
+  --color-ivory: #FAF7F2;
+  --color-ivory-light: #FFFDFB;
+  --color-ivory-dark: #F2ECE3;
+  
+  --color-blush: #F6ECE8;
+  --color-blush-border: #EADBCE;
+  
+  --color-maroon: #6D182B;
+  --color-maroon-dark: #50101E;
+  --color-maroon-light: #8E253A;
+  
+  --color-gold: #C59D5F;
+  --color-gold-light: #DFC493;
+  --color-gold-dark: #9C7738;
+}
+
+@layer base {
+  body {
+    background-color: #FAF7F2;
+    color: #2D1D1E;
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+    transition: background-color 0.25s ease, color 0.25s ease;
+  }
+
+  h1, h2, h3, .font-serif {
+    font-family: var(--font-serif);
+  }
+}
+
+/* =========================================================
+   DARK THEME: LUXURIOUS MIDNIGHT HENNA VELVET & GOLD
+   ========================================================= */
+html.dark {
+  color-scheme: dark;
+}
+
+html.dark body {
+  background-color: #140C0E;
+  color: #EDE2DC;
+}
+
+/* Background mappings */
+.dark .bg-\[\#FAF7F2\] {
+  background-color: #140C0E !important;
+}
+
+.dark .bg-\[\#FAF7F2\]\/95 {
+  background-color: rgba(20, 12, 14, 0.95) !important;
+}
+
+.dark .bg-\[\#FAF7F2\]\/90 {
+  background-color: rgba(20, 12, 14, 0.9) !important;
+}
+
+.dark .bg-\[\#FAF7F2\]\/80 {
+  background-color: rgba(20, 12, 14, 0.8) !important;
+}
+
+.dark .bg-\[\#FFFDFB\] {
+  background-color: #1D1215 !important;
+}
+
+.dark .bg-\[\#FFFDFB\]\/95 {
+  background-color: rgba(29, 18, 21, 0.95) !important;
+}
+
+.dark .bg-\[\#FFFDFB\]\/90 {
+  background-color: rgba(29, 18, 21, 0.9) !important;
+}
+
+.dark .bg-\[\#F2ECE3\] {
+  background-color: #27181D !important;
+}
+
+.dark .bg-\[\#F6ECE8\] {
+  background-color: #341C23 !important;
+}
+
+.dark .bg-\[\#2D1D1E\] {
+  background-color: #0E0708 !important;
+}
+
+.dark .bg-white {
+  background-color: #1D1215 !important;
+}
+
+/* Border mappings */
+.dark .border-\[\#EADBCE\] {
+  border-color: #42262E !important;
+}
+
+.dark .border-\[\#EADBCE\]\/80 {
+  border-color: rgba(66, 38, 46, 0.8) !important;
+}
+
+.dark .border-\[\#EADBCE\]\/70 {
+  border-color: rgba(66, 38, 46, 0.7) !important;
+}
+
+.dark .border-\[\#EADBCE\]\/60 {
+  border-color: rgba(66, 38, 46, 0.6) !important;
+}
+
+.dark .border-\[\#EADBCE\]\/50 {
+  border-color: rgba(66, 38, 46, 0.5) !important;
+}
+
+.dark .border-\[\#F2ECE3\] {
+  border-color: #381E24 !important;
+}
+
+.dark .border-\[\#50101E\] {
+  border-color: #2E1419 !important;
+}
+
+/* Typography / Text color mappings */
+.dark .text-\[\#4A0E1B\] {
+  color: #F8E7DC !important;
+}
+
+.dark .text-\[\#50101E\] {
+  color: #FCEFE6 !important;
+}
+
+.dark .text-\[\#2D1D1E\] {
+  color: #EDE2DC !important;
+}
+
+.dark .text-\[\#7E2638\] {
+  color: #F0A5B4 !important;
+}
+
+.dark .text-\[\#6D182B\] {
+  color: #F0A5B4 !important;
+}
+
+.dark .text-\[\#5A4543\] {
+  color: #D3C1BA !important;
+}
+
+.dark .text-\[\#7A6461\] {
+  color: #BCA8A1 !important;
+}
+
+.dark .text-\[\#8C6D62\] {
+  color: #CBB8B1 !important;
+}
+
+.dark .text-\[\#4A3B39\] {
+  color: #DFCEC7 !important;
+}
+
+/* Interactive hover styles in dark mode */
+.dark .hover\:bg-\[\#F2ECE3\]:hover {
+  background-color: #2D1A20 !important;
+}
+
+.dark .hover\:bg-\[\#FAF7F2\]:hover {
+  background-color: #221418 !important;
+}
+
+.dark .hover\:bg-\[\#FFFDFB\]:hover {
+  background-color: #26171C !important;
+}
+
+/* Input, select, textarea overrides for dark theme */
+.dark input[type="text"],
+.dark input[type="email"],
+.dark input[type="tel"],
+.dark input[type="date"],
+.dark input[type="password"],
+.dark select,
+.dark textarea {
+  background-color: #211317 !important;
+  color: #EDE2DC !important;
+  border-color: #4A2B33 !important;
+}
+
+.dark input::placeholder,
+.dark textarea::placeholder {
+  color: #9C838A !important;
+}
+
+/* Custom scrollbars in dark mode */
+html.dark ::-webkit-scrollbar-track {
+  background: #140C0E;
+}
+html.dark ::-webkit-scrollbar-thumb {
+  background: #42262E;
+  border-radius: 4px;
+}
+html.dark ::-webkit-scrollbar-thumb:hover {
+  background: #5E3540;
+}
